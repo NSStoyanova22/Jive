@@ -1,8 +1,40 @@
-HELP.md
+################################
+# Maven / Java
+################################
 target/
+*.log
+
+################################
+# Maven Wrapper
+################################
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+
+################################
+# Node / Tailwind
+################################
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+################################
+# Generated CSS (optional)
+################################
+src/main/resources/static/css/output.css
+
+################################
+# IDE Files
+################################
+
+### IntelliJ ###
+.idea/
+*.iml
+*.ipr
+*.iws
+
+### VS Code ###
+.vscode/
 
 ### STS ###
 .apt_generated
@@ -13,12 +45,6 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -26,8 +52,8 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+################################
+# macOS
+################################
+.DS_Store
