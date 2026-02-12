@@ -1,20 +1,51 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Jive</title>
-    <link rel="stylesheet" href="/css/output.css">
+  <meta charset="UTF-8" />
+  <title>Jive</title>
+  <link rel="stylesheet" href="/css/output.css">
 </head>
-<body class="p-8">
-<h1 class="text-3xl font-bold">Users</h1>
+<body class="p-8 max-w-3xl mx-auto">
+  <h1 class="text-3xl font-bold">Jive</h1>
 
-<form method="post" action="/users" class="mt-4 flex gap-2">
-    <input name="name" class="border rounded px-3 py-2" placeholder="Name">
-    <button class="bg-black text-white px-4 py-2 rounded">Add</button>
-</form>
+  <div class="mt-6 p-4 border rounded">
+    <h2 class="text-xl font-semibold">Create User</h2>
 
-<ul class="mt-6 list-disc pl-6">
-    <li th:each="u : ${users}" th:text="${u.name}"></li>
-</ul>
+    <form class="mt-3 grid gap-2" method="post" action="/users">
+      <input class="border rounded px-3 py-2" name="username" placeholder="username" required />
+      <input class="border rounded px-3 py-2" name="email" placeholder="email" required />
+      <input class="border rounded px-3 py-2" name="password" placeholder="password" required />
+      <button class="bg-black text-white px-4 py-2 rounded w-fit">Create</button>
+    </form>
+  </div>
+
+  <div class="mt-6 p-4 border rounded">
+    <h2 class="text-xl font-semibold">Create Post</h2>
+
+    <form class="mt-3 grid gap-2" method="post" action="/posts">
+      <select class="border rounded px-3 py-2" name="userId" required>
+        <option value="" disabled selected>Select author</option>
+        <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.username}"></option>
+      </select>
+
+      <textarea class="border rounded px-3 py-2" name="content" placeholder="What’s happening?" required></textarea>
+      <button class="bg-black text-white px-4 py-2 rounded w-fit">Post</button>
+    </form>
+  </div>
+
+  <div class="mt-6">
+    <h2 class="text-xl font-semibold">Feed</h2>
+
+    <div class="mt-3 grid gap-3">
+      <div class="p-4 border rounded" th:each="p : ${posts}">
+        <div class="text-sm opacity-70">
+          <span th:text="${p.author.username}"></span>
+          •
+          <span th:text="${#temporals.format(p.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+        <p class="mt-2" th:text="${p.content}"></p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

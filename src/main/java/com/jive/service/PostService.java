@@ -6,6 +6,8 @@ import com.jive.repository.PostRepository;
 import com.jive.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
     private final PostRepository postRepo;
@@ -16,9 +18,17 @@ public class PostService {
         this.userRepo = userRepo;
     }
 
+    public List<Post> feed() {
+        return postRepo.findAllByOrderByCreatedAtDesc();
+    }
+
     public Post createPost(long userId, String content) {
+        if (content == null || content.trim().isEmpty()) {
+            throw new IllegalArgumentException("Post content cannot be empty.");
+        }
         User author = userRepo.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
-        return postRepo.save(new Post(author, content));
+
+        return postRepo.save(new Post(author, content.trim()));
     }
 }

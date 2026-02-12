@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "posts")
+@Table(name="posts")
 public class Post {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional=false, fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id", nullable=false)
     private User author;
 
     @Column(nullable=false, length=2000)
@@ -29,4 +29,8 @@ public class Post {
     public Long getId() { return id; }
     public User getAuthor() { return author; }
     public String getContent() { return content; }
+    public Instant getCreatedAt() { return createdAt; }
+
+    public void setAuthor(User author) { this.author = author; }
+    public void setContent(String content) { this.content = content; }
 }
